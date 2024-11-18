@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Les Simpson</title>
+    <link rel="icon" href="{% static 'images/icon.ico' %}"></link>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+    <div class="simpson-logo">
+        <img src="{% static 'images/logo_simpson.png' %}" alt="logo">
+    </div>
+
+    <div class="simpson-container">
+        {% for simpson in simpsons %}
+            <a class="simpson" href="{% url 'character_detail' id_character=simpson.id_character %}">
+                <h3 class="simpson-name">{{simpson.id_character}}</h3>
+                <img class="simpson-img" src="{% static simpson.photo %}">
+                <h4 class="simpson-surname">{{simpson.surnom}}</h4>
+                <h4 class="simpson-age"> Age : {{simpson.age}} an{% if simpson.age > 1 %}s{% endif %}</h4>
+                <h4 class="simpson-place">Lieu : {{simpson.lieu}}</h4>
+                <h4 class="simpson-state">État : {{simpson.etat}}</h4>
+            </a>
+        {% endfor %}
+    </div>
+
+    {% block content %}{% endblock %}
+
+
+    <div class="place-container">
+        {% for place in places %}
+        <div class="place">
+            <h3 class="place-name">{{place.id_place}}</h3>
+            <img class="place-img" src="{% static place.photo %}">
+            <h4 class="place-dispo">{{place.disponibilite}}</h4>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

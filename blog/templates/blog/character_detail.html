@@ -1,0 +1,48 @@
+{% extends 'blog/post_list.html' %}
+{% load static %}
+{% block content %}
+
+<div class="simpson-form-div">
+  <div class="form-display-container">
+    <div class="form-display-header">
+      <h1>
+        <a href="/" class="simpson-target-name">{{ simpson.id_character }}</a>
+      </h1>
+
+      <h3>
+        Lieu: {{simpson.lieu}}
+      </h3>
+
+      <h3>
+        Etat: {{simpson.etat}}
+      </h3>
+
+      <h3>
+        Age: {{simpson.age}} an{% if simpson.age > 1 %}s{% endif %}
+      </h3>
+
+      <form method="POST" class="post-form">{% csrf_token %}
+        <b> Changer : </b> {{ form.as_ul }}
+        <button type="submit" class="btn btn-outline-light">Valider</button>
+        <a href="{% url 'post_list' %}">Retour</a>
+      </form>
+    </div>
+    <div class="form-display-image">
+        <img src="{% static photo_path %}" alt="Image">
+    </div>
+  </div>
+
+</div>
+
+{% if messages %}
+<div class="messages">
+  {% for message in messages %}
+  <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
+
